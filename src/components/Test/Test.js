@@ -1,40 +1,58 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Element from "../Element/Element";
+import Introduction from "./Introduction";
 
 class Test extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showIntroduction: true,
       shapes: this.getTestShapes()
     };
   }
 
   render() {
-    const { shapes } = this.state;
+    const { shapes, showIntroduction } = this.state;
     const { step } = this.props;
     return (
       <div className="Test">
         {step}
-        {shapes.map((shape, index) => {
-          const posX = this.getRandomNumber(800);
-          const posY = this.getRandomNumber(400);
-          return (
-            <Element
-              key={index}
-              correct={index === 0 ? true : false}
-              shape={shape}
-              x={posX}
-              y={posY}
-            />
-          );
-        })}
+        {showIntroduction ? (
+          <Introduction
+            color="black"
+            shape={shapes && shapes[0]}
+            onGameStart={this.onGameStart}
+          />
+        ) : (
+          shapes.map((shape, index) => {
+            const posX = this.getRandomNumber(800);
+            const posY = this.getRandomNumber(400);
+            return (
+              <Element
+                key={index}
+                correct={index === 0 ? true : false}
+                shape={shape}
+                x={posX}
+                y={posY}
+              />
+            );
+          })
+        )}
       </div>
     );
   }
 
   /**
+   * Hide Introduction when game starts
+   */
+  onGameStart = () => {
+    this.setState({ showIntroduction: false });
+  };
+
+  /**
    * Generate list of shapes to use in this test
+   * @param {number} numberOfIncorrect shapes (default = 4)
    */
   getTestShapes = (numberOfIncorrect = 4) => {
     const { shapes } = this.props;
