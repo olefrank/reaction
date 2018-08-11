@@ -51,6 +51,7 @@ class Element extends Component {
 }
 
 Element.propTypes = {
+  correct: PropTypes.bool,
   shape: PropTypes.string,
   x: PropTypes.number,
   y: PropTypes.number
