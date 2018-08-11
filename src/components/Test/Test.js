@@ -21,7 +21,7 @@ class Test extends Component {
     const { shapes, showIntroduction, step } = this.state;
     return (
       <div className="Test">
-        {step}
+        <h1>{`#${step}`}</h1>
         {showIntroduction ? (
           <Introduction
             color="black"

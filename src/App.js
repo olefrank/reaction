@@ -43,6 +43,13 @@ class App extends Component {
     this.setState({ steps: nextSteps });
   };
 
+  /**
+   * Restart Test
+   */
+  onAppRestart = () => {
+    this.setState({ steps: [...allSteps].slice(1), results: [] });
+  };
+
   renderAppSteps = step => {
     const { results } = this.state;
 

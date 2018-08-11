@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 class Introduction extends Component {
   state = {
-    countdown: 5,
+    countdown: 2,
     timer: undefined
   };
 
