@@ -29,7 +29,7 @@ const renderResult = (result, i) => {
   const timeFormatted = roundDecimals(result.time / 1000);
   return (
     <div key={i} className="Summary__result">{`Step ${
-      result.step
+      result.stepIndex
     }: ${timeFormatted} sec.`}</div>
   );
 };
@@ -38,7 +38,7 @@ Summary.propTypes = {
   onClick: PropTypes.func,
   results: PropTypes.arrayOf(
     PropTypes.shape({
-      step: PropTypes.number,
+      stepIndex: PropTypes.number,
       time: PropTypes.number
     })
   )
