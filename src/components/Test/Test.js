@@ -8,7 +8,8 @@ class Test extends Component {
     super(props);
     this.state = {
       showIntroduction: true,
-      shapes: this.getTestShapes()
+      shapes: this.getTestShapes(),
+      startTime: undefined
     };
   }
 
@@ -35,6 +36,7 @@ class Test extends Component {
                 shape={shape}
                 x={posX}
                 y={posY}
+                onClick={this.onElementClick}
               />
             );
           })
@@ -47,7 +49,16 @@ class Test extends Component {
    * Hide Introduction when game starts
    */
   onGameStart = () => {
-    this.setState({ showIntroduction: false });
+    this.setState({ showIntroduction: false, startTime: performance.now() });
+  };
+
+  onElementClick = correct => {
+    if (correct) {
+      const endTime = performance.now();
+      const { step } = this.props;
+      const time = endTime - this.state.startTime;
+      this.props.addResult({ step, time });
+    }
   };
 
   /**
@@ -102,7 +113,8 @@ class Test extends Component {
 
 Test.propTypes = {
   shapes: PropTypes.arrayOf(PropTypes.string),
-  step: PropTypes.number
+  step: PropTypes.number,
+  addResult: PropTypes.func
 };
 
 Test.defaultProps = {

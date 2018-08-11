@@ -4,12 +4,14 @@ import "./Element.css";
 
 class Element extends Component {
   render() {
-    const { shape, x, y } = this.props;
+    const { shape, x, y, onClick, correct } = this.props;
     return (
       <div
         className="Element"
         style={{ left: x, top: y }}
-        onClick={this.onClick}
+        onClick={() => {
+          onClick(correct);
+        }}
       >
         {this.renderShape(shape)}
       </div>
@@ -42,19 +44,14 @@ class Element extends Component {
     }
     return <Shape />;
   };
-
-  onClick = e => {
-    if (this.props.correct) {
-      alert("CORRECT");
-    }
-  };
 }
 
 Element.propTypes = {
   correct: PropTypes.bool,
   shape: PropTypes.string,
   x: PropTypes.number,
-  y: PropTypes.number
+  y: PropTypes.number,
+  onClick: PropTypes.func
 };
 
 export default Element;
