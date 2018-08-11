@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Element from "../Element/Element";
 import Introduction from "./Introduction";
+import { getRandomNumber } from "../../utils";
+
+const shapes = ["Circle", "Square", "Star", "Penta", "Hexa"];
 
 class Test extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      step: 1,
       showIntroduction: true,
       shapes: this.getTestShapes(),
       startTime: undefined
@@ -14,8 +18,7 @@ class Test extends Component {
   }
 
   render() {
-    const { shapes, showIntroduction } = this.state;
-    const { step } = this.props;
+    const { shapes, showIntroduction, step } = this.state;
     return (
       <div className="Test">
         {step}
@@ -27,15 +30,11 @@ class Test extends Component {
           />
         ) : (
           shapes.map((shape, index) => {
-            const posX = this.getRandomNumber(800);
-            const posY = this.getRandomNumber(400);
             return (
               <Element
                 key={index}
                 correct={index === 0 ? true : false}
                 shape={shape}
-                x={posX}
-                y={posY}
                 onClick={this.onElementClick}
               />
             );
@@ -52,12 +51,39 @@ class Test extends Component {
     this.setState({ showIntroduction: false, startTime: performance.now() });
   };
 
-  onElementClick = correct => {
-    if (correct) {
+  /**
+   * Create new Test if current is finished
+   * If all tests are done navigate to next step in App
+   */
+  onTestContinue = () => {
+    const { numSteps, onAppContinue } = this.props;
+    const { step } = this.state;
+
+    if (numSteps > step) {
+      this.setState({
+        showIntroduction: true,
+        startTime: undefined,
+        shapes: this.getTestShapes(),
+        step: this.state.step + 1
+      });
+    } else {
+      onAppContinue();
+    }
+  };
+
+  /**
+   * Handle mouse click on element
+   * @param {boolean} correctAnswer
+   */
+  onElementClick = correctAnswer => {
+    if (correctAnswer) {
       const endTime = performance.now();
-      const { step } = this.props;
+      const { step } = this.state;
       const time = endTime - this.state.startTime;
       this.props.addResult({ step, time });
+
+      // continue test
+      this.onTestContinue();
     }
   };
 
@@ -66,7 +92,6 @@ class Test extends Component {
    * @param {number} numberOfIncorrect shapes (default = 4)
    */
   getTestShapes = (numberOfIncorrect = 4) => {
-    const { shapes } = this.props;
     const testShapes = [];
     const maxIndex = shapes.length - 1;
 
@@ -84,15 +109,6 @@ class Test extends Component {
   };
 
   /**
-   * Get random number between min and max
-   * @param {number} max
-   * @param {number} min (default = 0)
-   */
-  getRandomNumber = (max, min = 0) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  };
-
-  /**
    * Gets random number between 0 and max but not a certain one (if specified)
    * @param {number} max
    * @param {number} notThis if specified don't return this number
@@ -102,7 +118,7 @@ class Test extends Component {
     let random;
 
     while (!found) {
-      random = this.getRandomNumber(max);
+      random = getRandomNumber(max);
       if (random !== notThis) {
         found = true;
       }
@@ -112,14 +128,8 @@ class Test extends Component {
 }
 
 Test.propTypes = {
-  shapes: PropTypes.arrayOf(PropTypes.string),
-  step: PropTypes.number,
+  numSteps: PropTypes.number,
   addResult: PropTypes.func
-};
-
-Test.defaultProps = {
-  shapes: [],
-  step: 1
 };
 
 export default Test;

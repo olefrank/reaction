@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { getRandomNumber } from "../../utils";
 import "./Element.css";
 
 class Element extends Component {
   render() {
-    const { shape, x, y, onClick, correct } = this.props;
+    const { shape, onClick, correct } = this.props;
+    const posX = getRandomNumber(700);
+    const posY = getRandomNumber(400);
+
     return (
       <div
         className="Element"
-        style={{ left: x, top: y }}
+        style={{ left: posX, top: posY }}
         onClick={() => {
           onClick(correct);
         }}
@@ -49,8 +53,6 @@ class Element extends Component {
 Element.propTypes = {
   correct: PropTypes.bool,
   shape: PropTypes.string,
-  x: PropTypes.number,
-  y: PropTypes.number,
   onClick: PropTypes.func
 };
 
