@@ -6,6 +6,7 @@ import { getRandomNumber } from "../../utils";
 import { withAppContext } from "../../contexts";
 import "./Test.css";
 
+// list of all shape names
 const shapes = ["Circle", "Square", "Star", "Pentagon", "Hexagon"];
 
 class Test extends Component {
@@ -53,7 +54,7 @@ class Test extends Component {
   }
 
   /**
-   * Hide Introduction when game starts
+   * Handle game start (after introduction)
    */
   onGameStart = () => {
     this.setState({ showIntroduction: false, startTime: performance.now() });
@@ -65,9 +66,8 @@ class Test extends Component {
    */
   onTestContinue = () => {
     const { numTests, onAppContinue, context } = this.props;
-    console.log(numTests, context.currentTestIndex);
+
     if (numTests > context.currentTestIndex) {
-      console.log(1);
       this.setState(
         {
           showIntroduction: true,
@@ -77,7 +77,6 @@ class Test extends Component {
         context.setCurrentTestIndex(context.currentTestIndex + 1)
       );
     } else {
-      console.log(2);
       onAppContinue();
     }
   };

@@ -34,7 +34,12 @@ class Element extends Component {
     );
   }
 
-  // todo
+  /**
+   * Calculate Element position within container
+   * @param {object} container dimensinos
+   * @param {object} element dimensions
+   * @param {number} borderWidth of element
+   */
   calcElementPosition = (
     container,
     element = { width: 80, height: 80 },
@@ -51,6 +56,10 @@ class Element extends Component {
     return { left, top };
   };
 
+  /**
+   * Get SVG shape from name
+   * @param {string} name of shape
+   */
   renderShape = name => {
     let Shape;
 

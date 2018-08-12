@@ -5,9 +5,8 @@ import {
   saveStateToLocalStorage
 } from "./utils/localstorage";
 import { AppContext } from "./contexts";
-import "./App.css";
 
-const allSteps = ["Welcome", "Game", "Summary"];
+export const allSteps = ["Welcome", "Game", "Summary"];
 
 class App extends Component {
   constructor(props) {

@@ -27,10 +27,17 @@ const Summary = ({ results, onClick }) => {
   );
 };
 
-const renderResult = (result, i) => {
+/**
+ * Render row with step and time
+ * @param {number} result
+ * @param {number} key
+ */
+const renderResult = (result, key) => {
+  // format time in rounded secs.
   const timeFormatted = roundDecimals(result.time / 1000);
+
   return (
-    <div key={i} className="Summary__results-item">
+    <div key={key} className="Summary__results-item">
       <span>{`#${result.testIndex}`}</span>
       <span>{`${timeFormatted} sec.`}</span>
     </div>

@@ -4,10 +4,8 @@ import Test from "../Test/Test";
 import Welcome from "../Welcome/Welcome";
 import Summary from "../Summary/Summary";
 import { withAppContext } from "../../contexts";
-
+import { allSteps } from "../../App";
 import "./AppContainer.css";
-
-const allSteps = ["Welcome", "Game", "Summary"];
 
 class AppContainer extends Component {
   render() {
@@ -19,6 +17,9 @@ class AppContainer extends Component {
     );
   }
 
+  /**
+   * Render current app step (from 'steps' queue)
+   */
   renderAppSteps = () => {
     const { context } = this.props;
     const { results } = context;
@@ -41,7 +42,7 @@ class AppContainer extends Component {
   };
 
   /**
-   * Navigate to next step in App
+   * Navigate to next app step
    */
   onAppContinue = () => {
     const { context } = this.props;
@@ -49,7 +50,7 @@ class AppContainer extends Component {
 
     // remove current step from list of steps
     // if empty -> restart
-    const remainingSteps = steps.length > 0 ? steps.slice(1) : [...allSteps];
+    const remainingSteps = steps.length > 0 && steps.slice(1);
 
     this.setState({ steps: remainingSteps }, context.setSteps(remainingSteps));
   };
