@@ -5,7 +5,7 @@ import Introduction from "./Introduction";
 import { getRandomNumber } from "../../utils";
 import "./Test.css";
 
-const shapes = ["Circle", "Square", "Star", "Penta", "Hexa"];
+const shapes = ["Circle", "Square", "Star", "Pentagon", "Hexagon"];
 
 class Test extends Component {
   constructor(props) {

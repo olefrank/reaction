@@ -63,11 +63,11 @@ class Element extends Component {
         Shape = require("./shapes").Star;
         break;
 
-      case "Penta":
+      case "Pentagon":
         Shape = require("./shapes").Penta;
         break;
 
-      case "Hexa":
+      case "Hexagon":
         Shape = require("./shapes").Hexa;
         break;
 

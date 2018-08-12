@@ -24,7 +24,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <AppHeader step={currentStep} results={results} countdown={1} />
+        <AppHeader step={currentStep} results={results} />
         <GameContainer>{this.renderAppSteps(currentStep)}</GameContainer>
       </div>
     );

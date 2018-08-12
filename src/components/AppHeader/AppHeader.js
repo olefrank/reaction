@@ -10,15 +10,14 @@ const AppHeader = ({ step, results, countdown }) => {
         {results && step === "Game" && `#${results.length + 1}`}
       </h1>
       <h1 className="AppHeader__title">Reaction</h1>
-      <h1 className="AppHeader__countdown">{countdown}</h1>
+      <h1 className="AppHeader__countdown"> </h1>
     </header>
   );
 };
 
 AppHeader.propTypes = {
   results: resultsProps,
-  step: PropTypes.string,
-  countdown: PropTypes.number
+  step: PropTypes.string
 };
 
 export default AppHeader;

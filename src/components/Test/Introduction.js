@@ -27,13 +27,14 @@ class Introduction extends Component {
 
   render() {
     const { countdown } = this.state;
-    const { color, shape } = this.props;
+    const { shape } = this.props;
 
     return (
       <div className="Introduction">
         <h1>{countdown}</h1>
         <p>
-          Click the {color} {shape} as fast as you can.
+          Click the <span className="Introduction__correct">{shape}</span> as
+          fast as you can.
         </p>
       </div>
     );
