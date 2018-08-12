@@ -4,15 +4,27 @@ import { getRandomNumber } from "../../utils";
 import "./Element.css";
 
 class Element extends Component {
+  state = {
+    left: 0,
+    top: 0
+  };
+
+  componentDidMount() {
+    const { containerDimensions } = this.props;
+
+    // calculate position
+    const { left, top } = this.calcElementPosition(containerDimensions);
+    this.setState({ left, top });
+  }
+
   render() {
     const { shape, onClick, correct } = this.props;
-    const posX = getRandomNumber(700);
-    const posY = getRandomNumber(400);
+    const { left, top } = this.state;
 
     return (
       <div
         className="Element"
-        style={{ left: posX, top: posY }}
+        style={{ left, top }}
         onClick={() => {
           onClick(correct);
         }}
@@ -21,6 +33,23 @@ class Element extends Component {
       </div>
     );
   }
+
+  // todo
+  calcElementPosition = (
+    container,
+    element = { width: 80, height: 80 },
+    borderWidth = 6
+  ) => {
+    // max values relative to container
+    const maxLeft = container.width - element.width - borderWidth;
+    const maxTop = container.height - element.height - borderWidth;
+
+    // generate random position
+    const left = getRandomNumber(maxLeft);
+    const top = getRandomNumber(maxTop);
+
+    return { left, top };
+  };
 
   renderShape = name => {
     let Shape;
@@ -53,7 +82,8 @@ class Element extends Component {
 Element.propTypes = {
   correct: PropTypes.bool,
   shape: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  parentDimensions: PropTypes.element // todo: refactor
 };
 
 export default Element;

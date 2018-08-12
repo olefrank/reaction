@@ -4,6 +4,8 @@ import Element from "../Element/Element";
 import Introduction from "./Introduction";
 import { getRandomNumber } from "../../utils";
 
+import "./Test.css";
+
 const shapes = ["Circle", "Square", "Star", "Penta", "Hexa"];
 
 class Test extends Component {
@@ -22,24 +24,33 @@ class Test extends Component {
     return (
       <div className="Test">
         <h1>{`#${stepIndex}`}</h1>
-        {showIntroduction ? (
-          <Introduction
-            color="black"
-            shape={shapes && shapes[0]}
-            onGameStart={this.onGameStart}
-          />
-        ) : (
-          shapes.map((shape, index) => {
-            return (
-              <Element
-                key={index}
-                correct={index === 0 ? true : false}
-                shape={shape}
-                onClick={this.onElementClick}
-              />
-            );
-          })
-        )}
+
+        <div
+          className="Test__container"
+          ref={div => {
+            this.div = div;
+          }}
+        >
+          {showIntroduction ? (
+            <Introduction
+              color="black"
+              shape={shapes && shapes[0]}
+              onGameStart={this.onGameStart}
+            />
+          ) : (
+            shapes.map((shape, index) => {
+              return (
+                <Element
+                  containerDimensions={this.div.getBoundingClientRect()}
+                  key={index}
+                  correct={index === 0 ? true : false}
+                  shape={shape}
+                  onClick={this.onElementClick}
+                />
+              );
+            })
+          )}
+        </div>
       </div>
     );
   }

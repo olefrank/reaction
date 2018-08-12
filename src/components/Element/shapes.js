@@ -33,7 +33,13 @@ export const Square = ({ color = "black" }) => {
 
 export const Star = ({ color = "black" }) => {
   return (
-    <svg width="110" height="100" className="Star" name="Star">
+    <svg
+      width="80"
+      height="80"
+      viewBox="0 0 110 100"
+      className="Star"
+      name="Star"
+    >
       <polygon
         points="53,3 66,38 103,38 73,63 83,95 53,75 23,95 33,63 3,38 40,38"
         stroke={color}
