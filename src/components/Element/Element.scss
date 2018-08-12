@@ -1,3 +1,7 @@
 .Element {
   position: absolute;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

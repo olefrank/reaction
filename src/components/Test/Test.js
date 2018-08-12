@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Element from "../Element/Element";
 import Introduction from "./Introduction";
 import { getRandomNumber } from "../../utils";
+import { withAppContext } from "../../contexts";
 import "./Test.css";
 
 const shapes = ["Circle", "Square", "Star", "Pentagon", "Hexagon"];
@@ -63,16 +64,20 @@ class Test extends Component {
    * If all tests are done navigate to next step in App
    */
   onTestContinue = () => {
-    const { numTests, onAppContinue } = this.props;
-    const { testIndex } = this.props;
-
-    if (numTests > testIndex) {
-      this.setState({
-        showIntroduction: true,
-        startTime: undefined,
-        shapes: this.getTestShapes()
-      });
+    const { numTests, onAppContinue, context } = this.props;
+    console.log(numTests, context.currentTestIndex);
+    if (numTests > context.currentTestIndex) {
+      console.log(1);
+      this.setState(
+        {
+          showIntroduction: true,
+          startTime: undefined,
+          shapes: this.getTestShapes()
+        },
+        context.setCurrentTestIndex(context.currentTestIndex + 1)
+      );
     } else {
+      console.log(2);
       onAppContinue();
     }
   };
@@ -83,9 +88,14 @@ class Test extends Component {
    */
   onElementClick = correctAnswer => {
     if (correctAnswer) {
+      const { context } = this.props;
+      const { currentTestIndex: testIndex } = context;
+
+      // calculate time
       const endTime = performance.now();
-      const { testIndex } = this.props;
       const time = endTime - this.state.startTime;
+
+      // update results
       this.props.addResult({ testIndex, time });
 
       // continue test
@@ -136,7 +146,8 @@ class Test extends Component {
 Test.propTypes = {
   testIndex: PropTypes.number,
   numTests: PropTypes.number,
-  addResult: PropTypes.func
+  addResult: PropTypes.func,
+  onAppContinue: PropTypes.func
 };
 
-export default Test;
+export default withAppContext(Test);

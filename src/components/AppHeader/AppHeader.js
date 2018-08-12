@@ -1,13 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { results as resultsProps } from "../../propTypes/shared";
+import { withAppContext } from "../../contexts";
 import "./AppHeader.css";
 
-const AppHeader = ({ step, results, countdown }) => {
+const AppHeader = ({ context }) => {
+  const currentStep = context.steps[0];
   return (
     <header className="AppHeader">
       <h1 className="AppHeader__step">
-        {results && step === "Game" && `#${results.length + 1}`}
+        {currentStep === "Game" && `#${context.currentTestIndex}`}
       </h1>
       <h1 className="AppHeader__title">Reaction</h1>
       <h1 className="AppHeader__countdown"> </h1>
@@ -15,9 +15,4 @@ const AppHeader = ({ step, results, countdown }) => {
   );
 };
 
-AppHeader.propTypes = {
-  results: resultsProps,
-  step: PropTypes.string
-};
-
-export default AppHeader;
+export default withAppContext(AppHeader);
