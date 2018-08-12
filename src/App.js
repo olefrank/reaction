@@ -3,10 +3,13 @@ import GameContainer from "./components/GameContainer/GameContainer";
 import Test from "./components/Test/Test";
 import Welcome from "./components/Welcome/Welcome";
 import Summary from "./components/Summary/Summary";
+import {
+  loadStateFromLocalStorage,
+  saveStateToLocalStorage
+} from "./utils/localstorage";
 import "./App.css";
 
 const allSteps = ["Welcome", "Game", "Summary"];
-const lsNamespace = "reaction";
 
 class App extends Component {
   state = {
@@ -30,59 +33,23 @@ class App extends Component {
 
   componentDidMount() {
     // hydrate state from LS
-    this.hydrateStateWithLocalStorage();
+    const loadedState = loadStateFromLocalStorage(this.state);
+    this.setState({ ...loadedState });
 
     // save state to LS before unload
-    window.addEventListener("beforeunload", this.saveStateToLocalStorage);
+    window.addEventListener("beforeunload", () => {
+      saveStateToLocalStorage(this.state);
+    });
   }
 
   componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.saveStateToLocalStorage);
+    window.removeEventListener("beforeunload", () => {
+      saveStateToLocalStorage(this.state);
+    });
 
     // saves if component has a chance to unmount
-    this.saveStateToLocalStorage();
+    saveStateToLocalStorage(this.state);
   }
-
-  /**
-   * Hydrate state from Local Storage
-   */
-  hydrateStateWithLocalStorage = () => {
-    let lsData;
-
-    if (localStorage.hasOwnProperty(lsNamespace)) {
-      lsData = localStorage.getItem(lsNamespace);
-    }
-
-    // parse to json object
-    lsData = JSON.parse(lsData);
-
-    for (let key in this.state) {
-      if (lsData && lsData.hasOwnProperty(key)) {
-        let value = lsData[key];
-
-        try {
-          value = JSON.parse(value);
-          this.setState({ [key]: value });
-        } catch (e) {
-          // handle empty string
-          this.setState({ [key]: value });
-        }
-      }
-    }
-  };
-
-  /**
-   * Save state to local storage
-   */
-  saveStateToLocalStorage = () => {
-    let lsData = {};
-
-    for (let key in this.state) {
-      lsData[key] = this.state[key];
-    }
-
-    localStorage.setItem(lsNamespace, JSON.stringify(lsData));
-  };
 
   /**
    * Add result to list of results
