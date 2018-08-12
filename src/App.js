@@ -3,6 +3,7 @@ import GameContainer from "./components/GameContainer/GameContainer";
 import Test from "./components/Test/Test";
 import Welcome from "./components/Welcome/Welcome";
 import Summary from "./components/Summary/Summary";
+import AppHeader from "./components/AppHeader/AppHeader";
 import {
   loadStateFromLocalStorage,
   saveStateToLocalStorage
@@ -18,14 +19,12 @@ class App extends Component {
   };
 
   render() {
-    const { steps } = this.state;
+    const { steps, results } = this.state;
     const currentStep = steps[0];
 
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Reaction</h1>
-        </header>
+        <AppHeader step={currentStep} results={results} countdown={1} />
         <GameContainer>{this.renderAppSteps(currentStep)}</GameContainer>
       </div>
     );
@@ -64,6 +63,7 @@ class App extends Component {
    */
   onAppContinue = () => {
     const { steps } = this.state;
+    // remove current step from list of steps
     const nextSteps = steps.length > 0 ? steps.slice(1) : [];
     this.setState({ steps: nextSteps });
   };
@@ -82,8 +82,8 @@ class App extends Component {
       case "Game":
         return (
           <Test
-            stepIndex={results.length + 1}
-            numSteps={5}
+            testIndex={results.length + 1}
+            numTests={5}
             addResult={this.addResult}
             onAppContinue={this.onAppContinue}
           />

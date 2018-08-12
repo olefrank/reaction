@@ -11,7 +11,6 @@ class Test extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stepIndex: this.props.stepIndex,
       showIntroduction: true,
       shapes: this.getTestShapes(),
       startTime: undefined
@@ -19,11 +18,9 @@ class Test extends Component {
   }
 
   render() {
-    const { shapes, showIntroduction, stepIndex } = this.state;
+    const { shapes, showIntroduction } = this.state;
     return (
       <div className="Test">
-        <h1>{`#${stepIndex}`}</h1>
-
         <div
           className="Test__container"
           ref={div => {
@@ -66,15 +63,14 @@ class Test extends Component {
    * If all tests are done navigate to next step in App
    */
   onTestContinue = () => {
-    const { numSteps, onAppContinue } = this.props;
-    const { stepIndex } = this.state;
+    const { numTests, onAppContinue } = this.props;
+    const { testIndex } = this.props;
 
-    if (numSteps > stepIndex) {
+    if (numTests > testIndex) {
       this.setState({
         showIntroduction: true,
         startTime: undefined,
-        shapes: this.getTestShapes(),
-        stepIndex: this.state.stepIndex + 1
+        shapes: this.getTestShapes()
       });
     } else {
       onAppContinue();
@@ -88,9 +84,9 @@ class Test extends Component {
   onElementClick = correctAnswer => {
     if (correctAnswer) {
       const endTime = performance.now();
-      const { stepIndex } = this.state;
+      const { testIndex } = this.props;
       const time = endTime - this.state.startTime;
-      this.props.addResult({ stepIndex, time });
+      this.props.addResult({ testIndex, time });
 
       // continue test
       this.onTestContinue();
@@ -138,8 +134,8 @@ class Test extends Component {
 }
 
 Test.propTypes = {
-  stepIndex: PropTypes.number,
-  numSteps: PropTypes.number,
+  testIndex: PropTypes.number,
+  numTests: PropTypes.number,
   addResult: PropTypes.func
 };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { results as resultsProps } from "../../propTypes/shared";
 import { roundDecimals } from "../../utils";
 
 import "./Summary.css";
@@ -30,7 +31,7 @@ const renderResult = (result, i) => {
   const timeFormatted = roundDecimals(result.time / 1000);
   return (
     <div key={i} className="Summary__results-item">
-      <span>{`#${result.stepIndex}`}</span>
+      <span>{`#${result.testIndex}`}</span>
       <span>{`${timeFormatted} sec.`}</span>
     </div>
   );
@@ -38,12 +39,7 @@ const renderResult = (result, i) => {
 
 Summary.propTypes = {
   onClick: PropTypes.func,
-  results: PropTypes.arrayOf(
-    PropTypes.shape({
-      stepIndex: PropTypes.number,
-      time: PropTypes.number
-    })
-  )
+  results: resultsProps
 };
 
 export default Summary;

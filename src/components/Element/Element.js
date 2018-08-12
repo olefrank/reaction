@@ -83,7 +83,7 @@ Element.propTypes = {
   correct: PropTypes.bool,
   shape: PropTypes.string,
   onClick: PropTypes.func,
-  parentDimensions: PropTypes.element // todo: refactor
+  parentDimensions: PropTypes.element
 };
 
 export default Element;
