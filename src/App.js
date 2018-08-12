@@ -69,11 +69,10 @@ class App extends Component {
   };
 
   /**
-   * Restart Test
-   * Todo: rename 'onTestRestart' + re-write to make more readable
+   * Restart App
    */
   onAppRestart = () => {
-    this.setState({ steps: [...allSteps].slice(1), results: [] });
+    this.setState({ steps: [...allSteps], results: [] });
   };
 
   renderAppSteps = step => {

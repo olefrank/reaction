@@ -1,4 +1,8 @@
 .Test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   &__container {
     position: relative;
     border: 6px solid #222;

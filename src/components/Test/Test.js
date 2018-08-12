@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Element from "../Element/Element";
 import Introduction from "./Introduction";
 import { getRandomNumber } from "../../utils";
-
 import "./Test.css";
 
 const shapes = ["Circle", "Square", "Star", "Penta", "Hexa"];

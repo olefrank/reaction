@@ -1,7 +1,17 @@
 .Summary {
-  &__result,
-  &__average {
-    padding: 1rem;
-    border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__results {
+    width: 50%;
+    margin-bottom: 5rem;
+
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      border-bottom: 1px solid #ccc;
+    }
   }
 }

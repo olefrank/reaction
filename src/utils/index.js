@@ -3,7 +3,7 @@
  * @param {number} number
  */
 export const roundDecimals = number => {
-  return Math.round(number * 10) / 10;
+  return Math.round(number * 100) / 100;
 };
 
 /**

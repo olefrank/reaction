@@ -10,15 +10,16 @@ const Summary = ({ results, onClick }) => {
   const avgFormatted = roundDecimals(avg / 1000);
 
   return (
-    <div>
+    <div className="Summary">
       <h1>Summary</h1>
-      {results &&
-        results.map((result, i) => {
-          return renderResult(result, i);
-        })}
-      <div className="Summary__average">{`Average: ${avgFormatted} sec.`}</div>
-
-      <button className="Summary__btn-restart" onClick={onClick}>
+      <div className="Summary__results">
+        {results && results.map((result, i) => renderResult(result, i))}
+        <div className="Summary__results-item">
+          <span>Average</span>
+          <span>{`${avgFormatted} sec.`}</span>
+        </div>
+      </div>
+      <button className="Summary__button-restart btn" onClick={onClick}>
         Restart
       </button>
     </div>
@@ -28,9 +29,10 @@ const Summary = ({ results, onClick }) => {
 const renderResult = (result, i) => {
   const timeFormatted = roundDecimals(result.time / 1000);
   return (
-    <div key={i} className="Summary__result">{`Step ${
-      result.stepIndex
-    }: ${timeFormatted} sec.`}</div>
+    <div key={i} className="Summary__results-item">
+      <span>{`#${result.stepIndex}`}</span>
+      <span>{`${timeFormatted} sec.`}</span>
+    </div>
   );
 };
 

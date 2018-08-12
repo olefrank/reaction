@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import "./Introduction.css";
 
 class Introduction extends Component {
   state = {
-    countdown: 2,
+    countdown: 3,
     timer: undefined
   };
 
