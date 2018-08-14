@@ -1,0 +1,21 @@
+BACKLOG:
+
+Placement of element
+- avoid collision with other elements
+
+Refactor header
+- countdown + "race timer" (fast countdown) in right side
+
+On window resize
+- re-calculate parent bounding rect
+
+Title animation
+On Game start: Title "Reaction" slide up in App Header
+
+Show shape instead of shape name in introduciton
+
+Use styled-components instead of SCSS
+
+Tests
+- unit
+- e2e

@@ -52,7 +52,7 @@ class Test extends Component {
       </div>
     );
   }
-
+  n;
   /**
    * Handle game start (after introduction)
    */

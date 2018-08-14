@@ -12,25 +12,29 @@ class Element extends Component {
   componentDidMount() {
     const { containerDimensions } = this.props;
 
-    // calculate position
-    const { left, top } = this.calcElementPosition(containerDimensions);
-    this.setState({ left, top });
+    // if containerDimensions given
+    if (containerDimensions) {
+      // calculate position
+      const { left, top } = this.calcElementPosition(containerDimensions);
+      this.setState({ left, top });
+    }
   }
 
   render() {
-    const { shape, onClick, correct } = this.props;
+    const { shape, onClick, correct, containerDimensions } = this.props;
     const { left, top } = this.state;
 
     return (
-      <div
+      <span
         className="Element"
-        style={{ left, top }}
+        // position absolute relative to container (if given)
+        style={{ position: containerDimensions && "absolute", left, top }}
         onClick={() => {
           onClick(correct);
         }}
       >
         {this.renderShape(shape)}
-      </div>
+      </span>
     );
   }
 
