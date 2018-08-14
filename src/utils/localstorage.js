@@ -12,21 +12,24 @@ export const loadStateFromLocalStorage = state => {
   }
 
   // parse to json object
-  serializedState = JSON.parse(serializedState);
+  if (serializedState) {
+    serializedState = JSON.parse(serializedState);
 
-  for (let key in result) {
-    if (serializedState && serializedState.hasOwnProperty(key)) {
-      let value = serializedState[key];
+    for (let key in result) {
+      if (serializedState.hasOwnProperty(key)) {
+        let value = serializedState[key];
 
-      try {
-        value = JSON.parse(value);
-        result[key] = value;
-      } catch (e) {
-        // handle empty string
-        result[key] = value;
+        try {
+          value = JSON.parse(value);
+          result[key] = value;
+        } catch (e) {
+          // handle empty string
+          result[key] = value;
+        }
       }
     }
   }
+
   return result;
 };
 
