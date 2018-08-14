@@ -3,7 +3,8 @@
  * @param {number} number
  */
 export const roundDecimals = number => {
-  return Math.round(number * 100) / 100;
+  const rounded = Math.round(number * 100) / 100;
+  return parseFloat(rounded).toFixed(2);
 };
 
 /**
