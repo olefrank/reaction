@@ -28,10 +28,19 @@ class Element extends Component {
       <span
         className="Element"
         // position absolute relative to container (if given)
-        style={{ position: containerDimensions && "absolute", left, top }}
-        onClick={() => {
-          onClick(correct);
+        style={{
+          position: containerDimensions && "absolute",
+          left,
+          top,
+          cursor: !containerDimensions && "default"
         }}
+        onClick={() => {
+          // only click
+          if (containerDimensions) {
+            onClick(correct);
+          }
+        }}
+        data-e2e={correct && "correct-element"}
       >
         {this.renderShape(shape)}
       </span>

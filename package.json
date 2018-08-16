@@ -17,6 +17,10 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
+    "cypress:open": "cypress open",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "cypress": "^3.1.0"
   }
 }

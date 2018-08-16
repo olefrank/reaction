@@ -5,7 +5,7 @@ import "./Introduction.css";
 
 class Introduction extends Component {
   state = {
-    countdown: 3000,
+    countdown: 3,
     timer: undefined
   };
 

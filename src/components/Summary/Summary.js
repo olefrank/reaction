@@ -12,8 +12,8 @@ const Summary = ({ results, onClick }) => {
 
   return (
     <div className="Summary">
-      <h1>Summary</h1>
-      <div className="Summary__results">
+      <h1 data-e2e="summary-title">Summary</h1>
+      <div className="Summary__results" data-e2e="summary-results">
         {results && results.map((result, i) => renderResult(result, i))}
         <div className="Summary__results-item">
           <span>Average</span>
