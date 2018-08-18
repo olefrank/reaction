@@ -1,0 +1,8 @@
+.Circle {
+  position: absolute;
+  cursor: pointer;
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+}

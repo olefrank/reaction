@@ -59,7 +59,8 @@ class App extends Component {
     const { steps: oldSteps } = this.state;
 
     // get next step or restore all steps
-    const steps = oldSteps.length > 1 ? oldSteps.slice(1) : [{ ...welcome }];
+    const steps =
+      oldSteps.length > 1 ? oldSteps.slice(1) : [...initialState.steps];
 
     this.setState({ steps });
   };
