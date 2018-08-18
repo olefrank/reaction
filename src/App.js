@@ -1,64 +1,72 @@
 import React, { Component } from "react";
-import AppContainer from "./components/AppContainer/AppContainer";
-import {
-  loadStateFromLocalStorage,
-  saveStateToLocalStorage
-} from "./utils/localstorage";
-import { AppContext } from "./contexts";
+import Header from "./components/Header/Header";
+import Welcome from "./components/Welcome/Welcome";
+import Summary from "./components/Summary/Summary";
+import Test from "./components/Test/Test";
+import withNext from "./hoc/withNext/withNext";
 
-export const allSteps = ["Welcome", "Game", "Summary"];
+import "./App.css";
 
+// all steps
+export const welcome = { name: "welcome", component: Welcome };
+export const test = { name: "test", component: Test, id: 1 };
+export const summary = { name: "summary", component: Summary };
+
+const initialState = {
+  results: [],
+  steps: [welcome, test, summary],
+  numTests: 1
+};
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      results: [],
-      steps: [...allSteps],
-      currentTestIndex: 1,
-      addResult: result =>
-        this.setState({ results: [...this.state.results, result] }),
-      setCurrentTestIndex: currentTestIndex =>
-        this.setState({ currentTestIndex }),
-      restartApp: () => {
-        this.setState({
-          results: [],
-          steps: [...allSteps],
-          currentTestIndex: 1
-        });
-      },
-      setSteps: steps => this.setState({ steps })
-    };
+    this.state = { ...initialState };
   }
 
   render() {
+    const { steps } = this.state;
     return (
-      <AppContext.Provider value={this.state}>
-        <div className="App">
-          <AppContainer />
-        </div>
-      </AppContext.Provider>
+      <div className="App">
+        <Header />
+        {steps.length && this.renderStep()}
+      </div>
     );
   }
 
-  componentDidMount() {
-    // hydrate state from LS
-    const loadedState = loadStateFromLocalStorage(this.state);
-    this.setState({ ...loadedState });
+  renderStep = () => {
+    // all steps
+    const { steps, numTests } = this.state;
 
-    // save state to LS before unload
-    window.addEventListener("beforeunload", () => {
-      saveStateToLocalStorage(this.state);
-    });
-  }
+    // current step
+    const { name, component, id } = steps[0];
 
-  componentWillUnmount() {
-    window.removeEventListener("beforeunload", () => {
-      saveStateToLocalStorage(this.state);
-    });
+    switch (name) {
+      case "test":
+        const Test = withNext(component, this.handleNext);
+        return <Test id={id} />;
+      case "welcome":
+        const Welcome = withNext(component, this.handleNext);
+        return (
+          <Welcome onChangeSteps={this.handleChangeSteps} numTests={numTests} />
+        );
+      default:
+        const Summary = withNext(component, this.handleNext);
+        return <Summary />;
+    }
+  };
 
-    // saves if component has a chance to unmount
-    saveStateToLocalStorage(this.state);
-  }
+  handleNext = e => {
+    const { steps: oldSteps } = this.state;
+
+    // get next step or restore all steps
+    const steps = oldSteps.length > 1 ? oldSteps.slice(1) : [{ ...welcome }];
+
+    this.setState({ steps });
+  };
+
+  handleChangeSteps = (steps, numTests) => {
+    this.setState({ steps, numTests });
+  };
 }
 
 export default App;
