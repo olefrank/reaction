@@ -1,4 +1,4 @@
-import { welcome, test, summary } from "../../App";
+import { welcome, test, summary } from "../App/App";
 
 export const getSteps = numTests => {
   // new steps list start with WelcomePage

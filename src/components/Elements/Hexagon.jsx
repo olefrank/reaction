@@ -1,5 +1,5 @@
 import React from "react";
-import withElement from "../../hoc/withElement";
+import withElement from "./withElement";
 
 const Hexagon = ({ width, height, strokeWidth, color }) => {
   height = 70;

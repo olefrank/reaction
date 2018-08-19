@@ -1,5 +1,5 @@
 import React from "react";
-import withElement from "../../hoc/withElement";
+import withElement from "./withElement";
 
 const Square = ({ width, height, strokeWidth, color }) => {
   return (

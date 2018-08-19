@@ -1,5 +1,5 @@
 import React from "react";
-import withElement from "../../hoc/withElement";
+import withElement from "./withElement";
 
 export const Star = ({ width, height, strokeWidth, color }) => {
   width = 80;
