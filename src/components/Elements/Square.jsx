@@ -1,13 +1,14 @@
 import React from "react";
 import withElement from "../../hoc/withElement";
 
-const Circle = ({ width, height, strokeWidth, color }) => {
+const Square = ({ width, height, strokeWidth, color }) => {
   return (
     <svg width={width} height={height}>
-      <circle
-        cx="30"
-        cy="30"
-        r="27"
+      <rect
+        x="3"
+        y="3"
+        width="54"
+        height="54"
         stroke={color}
         strokeWidth={strokeWidth}
         fill="none"
@@ -16,4 +17,4 @@ const Circle = ({ width, height, strokeWidth, color }) => {
   );
 };
 
-export default withElement(Circle);
+export default withElement(Square);
