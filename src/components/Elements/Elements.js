@@ -4,8 +4,4 @@ import Star from "./Star";
 import Pentagon from "./Pentagon";
 import Hexagon from "./Hexagon";
 
-export { Circle };
-export { Square };
-export { Star };
-export { Pentagon };
-export { Hexagon };
+export const elements = [Circle, Square, Star, Pentagon, Hexagon];

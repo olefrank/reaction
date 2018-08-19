@@ -47,7 +47,7 @@ class App extends Component {
 
     switch (name) {
       case "test":
-        return <Component id={id} addResult={this.addResult} />;
+        return <Component id={id} addResult={this.addResult} numElements={5} />;
       case "welcome":
         return (
           <Component
