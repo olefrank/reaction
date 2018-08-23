@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getTestElements, getElementPositions } from "./TestUtils";
+import { getElementPositions } from "./TestUtils";
+import { withAppContext } from "../../hoc/withAppContext";
 import "./Test.css";
 
 class Test extends React.Component {
@@ -8,32 +9,34 @@ class Test extends React.Component {
     super(props);
     this.state = {
       time: performance.now(),
-      elements: [],
       positions: []
     };
   }
 
   componentDidMount() {
-    const { numElements } = this.props;
+    const { elements } = this.props;
     const container = this.div.getBoundingClientRect();
-
-    //generate elements
-    const elements = getTestElements(numElements);
-    const positions = getElementPositions(container, elements, {
+    const elementDimensions = {
       width: 100,
       height: 100
-    });
+    };
+
+    //generate element positions
+    const positions = getElementPositions(
+      container,
+      elements,
+      elementDimensions
+    );
 
     this.setState({ elements, positions });
   }
 
   render() {
-    const { id } = this.props;
-    const { elements, positions } = this.state;
+    const { elements } = this.props;
+    const { positions } = this.state;
 
     return (
       <div className="Test">
-        <h2>Test #{id}</h2>
         <div
           className="Test__area"
           ref={div => {
@@ -47,7 +50,7 @@ class Test extends React.Component {
   }
 
   handleElementClick = correct => {
-    const { id, addResult, onNext } = this.props;
+    const { id, addResult, nextStep } = this.props;
 
     // if clicked correct
     if (correct) {
@@ -61,31 +64,34 @@ class Test extends React.Component {
       addResult(result);
 
       // continue
-      onNext();
+      nextStep();
     }
   };
 
   renderElements = (elements, positions) => {
     return elements.map((Element, i) => {
       const position = positions.shift();
-      return (
-        <Element
-          key={i}
-          correct={i === 0}
-          onClick={correct => this.handleElementClick(correct)}
-          x={position.x}
-          y={position.y}
-        />
-      );
+
+      if (position) {
+        return (
+          <Element
+            key={i}
+            correct={i === 0}
+            onClick={correct => this.handleElementClick(correct)}
+            x={position.x}
+            y={position.y}
+          />
+        );
+      }
+      return null;
     });
   };
 }
 
 Test.propTypes = {
-  onNext: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  elements: PropTypes.arrayOf(PropTypes.func),
   addResult: PropTypes.func.isRequired,
-  numElements: PropTypes.number.isRequired
+  nextStep: PropTypes.func.isRequired
 };
 
-export default Test;
+export default withAppContext(Test);

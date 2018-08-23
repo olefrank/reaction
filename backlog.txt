@@ -1,12 +1,12 @@
 BACKLOG:
 
-Generate test:
-- get list of x elements (1 correct, unique shape)
-- position inside box
 
-- show introduction + countdown
+Introduction
+- countdown
+- correct element
+
+Placement
 - avoid collision with other elements
-
 
 Summary page:
 -list of results
@@ -24,3 +24,10 @@ On Game start: Title "Reaction" slide up in App Header
 Use styled-components instead of SCSS
 
 Tests
+
+-- Done --
+
+Generate test:
+- get list of x elements (1 correct, unique shape)
+- position inside box
+

@@ -1,0 +1,12 @@
+.Introduction {
+  &__element-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Element {
+    position: initial;
+    margin: 0 1rem;
+  }
+}

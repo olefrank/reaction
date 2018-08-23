@@ -1,4 +1,4 @@
-import { welcome, testwrap, summary } from "../App/App";
+import { welcome, introduction, testwrap, summary } from "../App/App";
 
 export const getSteps = numTests => {
   // new steps list start with WelcomePage
@@ -6,7 +6,9 @@ export const getSteps = numTests => {
 
   // add Test steps
   for (let i = 0; i < numTests; i++) {
-    steps.push({ ...testwrap, id: i + 1 });
+    const id = i + 1;
+    steps.push({ ...introduction, id });
+    steps.push({ ...testwrap, id });
   }
 
   // finish with SummaryPage

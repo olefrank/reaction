@@ -2,22 +2,24 @@ import React, { Component } from "react";
 import Header from "../Header/Header";
 import Welcome from "../Welcome/Welcome";
 import Summary from "../Summary/Summary";
-import Test from "../Test/Test";
-import withNext from "./withNext";
-import { AppContext } from "./AppContext";
+import TestWrap from "../TestWrap/TestWrap";
+import withNext from "../../hoc/withNext";
+import { AppContext } from "../../contexts";
 
 import "./App.css";
 
 // all steps
 export const welcome = { name: "welcome", component: Welcome };
-export const test = { name: "test", component: Test, id: 1 };
+export const testwrap = { name: "testwrap", component: TestWrap, id: 1 };
 export const summary = { name: "summary", component: Summary };
 
 class App extends Component {
   initialState = {
     results: [],
-    steps: [welcome, test, summary],
-    numTests: 1
+    steps: [welcome, testwrap, summary],
+    numTests: 1,
+    addResult: result =>
+      this.setState({ results: [...this.state.results, result] })
   };
 
   constructor(props) {
@@ -46,8 +48,15 @@ class App extends Component {
     const Component = withNext(component, this.handleNext);
 
     switch (name) {
-      case "test":
-        return <Component id={id} addResult={this.addResult} numElements={5} />;
+      case "testwrap":
+        return (
+          <Component
+            id={id}
+            addResult={this.addResult}
+            nextStep={this.handleNext}
+            numElements={5}
+          />
+        );
       case "welcome":
         return (
           <Component
