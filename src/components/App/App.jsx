@@ -7,6 +7,7 @@ import withNext from "../../hoc/withNext";
 import { AppContext } from "../../contexts";
 
 import "./App.css";
+import { getSteps } from "../../utils";
 
 // all steps
 export const welcome = { name: "welcome", component: Welcome };
@@ -14,12 +15,11 @@ export const testwrap = { name: "testwrap", component: TestWrap, id: 1 };
 export const summary = { name: "summary", component: Summary };
 
 class App extends Component {
+  numTests = 3;
   initialState = {
     results: [],
-    steps: [welcome, testwrap, summary],
-    numTests: 1,
-    addResult: result =>
-      this.setState({ results: [...this.state.results, result] })
+    steps: getSteps(this.numTests),
+    numTests: this.numTests
   };
 
   constructor(props) {
@@ -48,6 +48,7 @@ class App extends Component {
     const Component = withNext(component, this.handleNext);
 
     switch (name) {
+      // test
       case "testwrap":
         return (
           <Component
@@ -57,6 +58,8 @@ class App extends Component {
             numElements={5}
           />
         );
+
+      // welcome
       case "welcome":
         return (
           <Component
@@ -64,6 +67,8 @@ class App extends Component {
             numTests={numTests}
           />
         );
+
+      // summary
       default:
         return <Component results={results} />;
     }

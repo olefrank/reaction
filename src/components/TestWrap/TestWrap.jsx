@@ -48,7 +48,12 @@ class TestWrap extends React.Component {
         {countdown > 0 ? (
           <Introduction countdown={countdown} id={id} element={elements[0]} />
         ) : (
-          <Test elements={elements} addResult={addResult} nextStep={nextStep} />
+          <Test
+            elements={elements}
+            addResult={addResult}
+            nextStep={nextStep}
+            id={id}
+          />
         )}
       </div>
     );

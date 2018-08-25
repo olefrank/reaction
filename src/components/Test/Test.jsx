@@ -89,6 +89,7 @@ class Test extends React.Component {
 }
 
 Test.propTypes = {
+  id: PropTypes.number.isRequired,
   elements: PropTypes.arrayOf(PropTypes.func),
   addResult: PropTypes.func.isRequired,
   nextStep: PropTypes.func.isRequired
