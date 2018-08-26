@@ -10,7 +10,7 @@ class TestWrap extends React.Component {
     super(props);
     this.state = {
       elements: [],
-      countdown: 3,
+      countdown: 1,
       timer: undefined
     };
   }

@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { roundDecimals } from "./SummaryUtils";
+import * as utils from "../../utils";
 import "./Summary.css";
 
 const Summary = ({ onNext, results }) => {
   const total = results.reduce((acc, result) => acc + result.time, 0);
   const avg = total / results.length;
-  const avgFormatted = roundDecimals(avg / 1000);
+  const avgFormatted = utils.roundDecimals(avg / 1000);
 
   return (
     <div className="Summary">
@@ -30,7 +30,7 @@ const Summary = ({ onNext, results }) => {
  */
 const renderResult = (result, key) => {
   // format time in rounded secs.
-  const timeFormatted = roundDecimals(result.time / 1000);
+  const timeFormatted = utils.roundDecimals(result.time / 1000);
 
   return (
     <div key={key} className="Summary__results-item">

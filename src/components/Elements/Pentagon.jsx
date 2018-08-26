@@ -14,4 +14,4 @@ const Pentagon = ({ width, height, strokeWidth, color }) => {
   );
 };
 
-export default withElement(Pentagon);
+export default withElement(Pentagon, "pentagon");

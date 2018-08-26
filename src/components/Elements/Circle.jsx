@@ -16,4 +16,4 @@ const Circle = ({ width, height, strokeWidth, color }) => {
   );
 };
 
-export default withElement(Circle);
+export default withElement(Circle, "circle");

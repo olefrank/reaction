@@ -16,4 +16,4 @@ export const Star = ({ width, height, strokeWidth, color }) => {
   );
 };
 
-export default withElement(Star);
+export default withElement(Star, "star");

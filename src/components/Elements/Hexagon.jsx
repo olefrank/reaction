@@ -15,4 +15,4 @@ const Hexagon = ({ width, height, strokeWidth, color }) => {
   );
 };
 
-export default withElement(Hexagon);
+export default withElement(Hexagon, "hexagon");

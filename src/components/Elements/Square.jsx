@@ -17,4 +17,4 @@ const Square = ({ width, height, strokeWidth, color }) => {
   );
 };
 
-export default withElement(Square);
+export default withElement(Square, "square");

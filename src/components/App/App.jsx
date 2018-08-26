@@ -5,9 +5,8 @@ import Summary from "../Summary/Summary";
 import TestWrap from "../TestWrap/TestWrap";
 import withNext from "../../hoc/withNext";
 import { AppContext } from "../../contexts";
-
+import * as utils from "../../utils";
 import "./App.css";
-import { getSteps } from "../../utils";
 
 // all steps
 export const welcome = { name: "welcome", component: Welcome };
@@ -18,7 +17,7 @@ class App extends Component {
   numTests = 3;
   initialState = {
     results: [],
-    steps: getSteps(this.numTests),
+    steps: utils.getSteps(this.numTests),
     numTests: this.numTests
   };
 
@@ -53,7 +52,7 @@ class App extends Component {
         return (
           <Component
             id={id}
-            addResult={this.addResult}
+            addResult={this.handleAddResult}
             nextStep={this.handleNext}
             numElements={5}
           />
@@ -63,7 +62,7 @@ class App extends Component {
       case "welcome":
         return (
           <Component
-            onChangeSteps={this.handleChangeSteps}
+            changeSteps={this.handleNumStepsChange}
             numTests={numTests}
           />
         );
@@ -88,11 +87,14 @@ class App extends Component {
     }
   };
 
-  handleChangeSteps = (steps, numTests) => {
+  handleNumStepsChange = numTests => {
+    // generate steps
+    const steps = utils.getSteps(numTests);
+
     this.setState({ steps, numTests });
   };
 
-  addResult = result => {
+  handleAddResult = result => {
     this.setState({ results: [...this.state.results, result] });
   };
 }

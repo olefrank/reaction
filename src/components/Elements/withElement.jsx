@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./withElement.css";
 
-const withElementProps = Shape => {
+const withElementProps = (Shape, name = "") => {
   const defaults = {
     x: 0,
     y: 0,
@@ -11,7 +11,7 @@ const withElementProps = Shape => {
     strokeWidth: 6,
     className: "",
     disabled: false,
-    correct: true,
+    correct: false,
     color: "black"
   };
   const HOC = p => {
@@ -24,7 +24,7 @@ const withElementProps = Shape => {
         }`}
         onClick={e => props.onClick(props.correct)}
       >
-        <Shape {...props} />
+        <Shape name={name} {...props} />
       </div>
     );
   };

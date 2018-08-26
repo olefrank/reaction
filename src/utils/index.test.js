@@ -1,4 +1,4 @@
-import { roundDecimals } from ".";
+import { roundDecimals, getRandomNumberNotThis, getSteps } from ".";
 
 describe("utils", () => {
   describe("roundDecimals", () => {
@@ -34,6 +34,46 @@ describe("utils", () => {
 
       // assert
       expect(actual).toEqual(expected);
+    });
+  });
+
+  describe("getRandomNumberNotThis", () => {
+    it("should generate random number within range", () => {
+      const max = 10;
+      const actual = getRandomNumberNotThis(max);
+      expect(actual).toBeLessThanOrEqual(max);
+    });
+
+    it("should generate random number other than the one given", () => {
+      const max = 1;
+      const not = 0;
+      const expected = max;
+      const actual = getRandomNumberNotThis(max, not);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe("getSteps", () => {
+    it("should generate correct amount of steps", () => {
+      const numTests = 3;
+      const expected = 5;
+      const actual = getSteps(numTests).length;
+      expect(actual).toEqual(expected);
+    });
+    it("should generate steps in correct order", () => {
+      const numTests = 5;
+      const expected = [
+        "welcome",
+        "testwrap",
+        "testwrap",
+        "testwrap",
+        "testwrap",
+        "testwrap",
+        "summary"
+      ];
+      const actual = getSteps(numTests);
+      actual.forEach((step, i) => expect(step.name).toEqual(expected[i]));
     });
   });
 });

@@ -9,7 +9,7 @@ const Introduction = ({ countdown, id, element: Element }) => {
       <h4>{countdown}</h4>
       {Element && (
         <div className="Introduction__element-wrap">
-          Click on <Element onClick={noop} /> to win
+          Click on <Element disabled={true} onClick={noop} /> to win
         </div>
       )}
     </div>

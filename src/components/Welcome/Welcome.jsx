@@ -1,16 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import * as utils from "../../utils";
 import "./Welcome.css";
 
-const Welcome = ({ onNext, numTests, onChangeSteps }) => (
+const Welcome = ({ onNext, numTests, changeSteps }) => (
   <div className="Welcome">
     <h2>Welcome</h2>
 
     <p>Select number of tests</p>
     <select
       value={numTests}
-      onChange={e => handleNumTestsChange(e, onChangeSteps)}
+      onChange={e => handleNumTestsChange(e, changeSteps)}
     >
       {renderOptions(5)}
     </select>
@@ -20,7 +19,7 @@ const Welcome = ({ onNext, numTests, onChangeSteps }) => (
 
 Welcome.propTypes = {
   onNext: PropTypes.func.isRequired,
-  onChangeSteps: PropTypes.func.isRequired,
+  changeSteps: PropTypes.func.isRequired,
   numTests: PropTypes.number.isRequired
 };
 
@@ -34,8 +33,7 @@ const renderOptions = numOptions => {
   ));
 };
 
-const handleNumTestsChange = (e, onChangeSteps) => {
+const handleNumTestsChange = (e, handleChange) => {
   const numTests = parseInt(e.currentTarget.value, 10);
-  const steps = utils.getSteps(numTests);
-  onChangeSteps(steps, numTests);
+  handleChange(numTests);
 };

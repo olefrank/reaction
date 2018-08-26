@@ -36,6 +36,11 @@ export const getRandomNumberNotThis = (max, notThis) => {
   return random;
 };
 
+/**
+ * Create list of app steps
+ * example: [welcome, testwrap, testwrap, summary]
+ * @param {number} numTests number of test steps to generate
+ */
 export const getSteps = numTests => {
   // new steps list start with WelcomePage
   const steps = [welcome];

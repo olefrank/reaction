@@ -1,16 +1,5 @@
 BACKLOG:
 
-
-Introduction
-- countdown
-- correct element
-
-Placement
-- avoid collision with other elements
-
-Summary page:
--list of results
-
 Refactor header
 - add results to header 
 - countdown + "race timer" (fast countdown) in right side
@@ -23,7 +12,7 @@ On Game start: Title "Reaction" slide up in App Header
 
 Use styled-components instead of SCSS
 
-Tests
+
 
 -- Done --
 
@@ -31,3 +20,16 @@ Generate test:
 - get list of x elements (1 correct, unique shape)
 - position inside box
 
+Introduction
+- countdown
+- correct element
+
+Placement
+- avoid collision with other elements
+
+Summary page:
+-list of results
+
+Tests
+
+JsDoc

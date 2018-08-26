@@ -1,31 +1,24 @@
-import { getRandomNumber, getRandomNumberNotThis } from "../../utils";
-import { elements as allElements } from "../Elements/Elements";
+import { getRandomNumber } from "../../utils";
 
 /**
- * Generate list of shapes to use in this test
- * @param {number} numElements number of shapes to create
+ * Get list of valid coordinates for positioning elements
+ * @param {*} container The area to render elements inside
+ * @param {*} elements List of elements to render
+ * @param {*} dimensions Element dimensions ("one size fits all")
  */
-export const getTestElements = (numElements = 5) => {
-  const elements = [];
-  const maxIndex = allElements.length - 1;
-
-  // get correct shape
-  const correctIndex = getRandomNumberNotThis(maxIndex);
-  const correct = allElements[correctIndex];
-  elements.push(correct);
-  numElements -= 1;
-
-  // get other shapes
-  let randomIndex;
-  for (let i = 0; i < numElements; i++) {
-    randomIndex = getRandomNumberNotThis(maxIndex, correctIndex);
-    const el = allElements[randomIndex];
-    elements.push(el);
-  }
-  return elements;
-};
-
 export const getElementPositions = (container, elements, dimensions) => {
+  if (!container || !elements || !dimensions) {
+    console.error(
+      "Missing param(s), Must contain 'container', 'elements', 'dimensions"
+    );
+  }
+  if (
+    !dimensions.hasOwnProperty("width") ||
+    !dimensions.hasOwnProperty("height")
+  ) {
+    console.error("Dimensions param must have specified width and height");
+  }
+
   const positions = [];
 
   elements.forEach(el => {
@@ -35,42 +28,64 @@ export const getElementPositions = (container, elements, dimensions) => {
   return positions;
 };
 
-const calcElementPosition = (container, positions, dimensions) => {
+/**
+ * Calculate valid element position
+ * - inside container frame
+ * - no overlapping elements (WIP: not working)
+ * @param {*} container Container area to render elements inside
+ * @param {*} positions List of positions already calculated
+ * @param {*} dimensions Element dimensions
+ */
+export const calcElementPosition = (container, positions, dimensions) => {
   const { width, height } = dimensions;
-  let x, y, a, b, found;
 
   // max values relative to container
   const maxLeft = container.width - width;
   const maxTop = container.height - height;
 
-  // generate random position inside container
-  x = getRandomNumber(maxLeft);
-  y = getRandomNumber(maxTop);
-
-  // create position
-  a = { x, y, width, height };
-
-  // test collision with other elements
-  positions.forEach(pos => {
-    b = { ...pos };
-
-    while (!found) {
-      // test collision
-      if (!isCollision(a, b)) {
-        found = true;
-      } else {
-        // generate random position inside container
-        a.x = getRandomNumber(maxLeft);
-        a.y = getRandomNumber(maxTop);
-      }
+  let a, found;
+  while (!found) {
+    // test overlap of a and each position
+    if (a && !isOverlap(positions, a)) {
+      found = true;
+    } else {
+      // generate random position inside container
+      a = {
+        ...dimensions,
+        x: getRandomNumber(maxLeft),
+        y: getRandomNumber(maxTop)
+      };
     }
-  });
-
+  }
   return a;
 };
 
-// not working
-const isCollision = (a, b) => {
+/**
+ * Test if element collides with any position in list
+ * @param {*} positions List of positions
+ * @param {*} a Element
+ */
+export const isOverlap = (positions, a) => {
+  let isOverlap = false;
+
+  positions.forEach((pos, i) => {
+    const b = { ...pos };
+
+    if (isCollision(a, b)) {
+      isOverlap = true;
+      return;
+    }
+  });
+
+  return isOverlap;
+};
+
+/**
+ * Test if two elements overlaps / collides
+ * @param {*} a Element a
+ * @param {*} b Element b
+ */
+export const isCollision = (a, b) => {
   return !(
     a.y + a.height < b.y ||
     a.y > b.y + b.height ||
