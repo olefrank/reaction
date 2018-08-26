@@ -13,7 +13,11 @@ const Welcome = ({ onNext, numTests, changeSteps }) => (
     >
       {renderOptions(5)}
     </select>
-    <button onClick={onNext} data-e2e="start-button">
+    <button
+      className="Welcome__start-btn"
+      onClick={onNext}
+      data-e2e="start-button"
+    >
       Start
     </button>
   </div>

@@ -1,0 +1,63 @@
+@import "./colors";
+
+$base__color--background: $grey--100;
+$base__color--hover: $grey--300;
+$base__color--border: $grey--500;
+$base__color--text-shadow: $grey--700;
+
+$start__color--background: $green--100;
+$start__color--hover: $green--300;
+$start__color--border: $green--500;
+$start__color--text-shadow: $green--700;
+
+$restart__color--background: $red--100;
+$restart__color--hover: $red--300;
+$restart__color--border: $red--500;
+$restart__color--text-shadow: $red--700;
+
+.button {
+  background-color: $base__color--background;
+  -moz-border-radius: 28px;
+  -webkit-border-radius: 28px;
+  border-radius: 28px;
+  border: 1px solid $base__color--border;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 10px 30px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px $base__color--text-shadow;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+
+  &:hover {
+    background-color: $base__color--hover;
+  }
+}
+
+.button--start {
+  @extend .button;
+  background-color: $start__color--background;
+  border-color: $start__color--background;
+  text-shadow: 0px 1px 0px $start__color--text-shadow;
+
+  &:hover {
+    background-color: $start__color--hover;
+  }
+}
+
+.button--restart {
+  @extend .button;
+  background-color: $restart__color--background;
+  border-color: $restart__color--background;
+  text-shadow: 0px 1px 0px $restart__color--text-shadow;
+
+  &:hover {
+    background-color: $restart__color--hover;
+  }
+}

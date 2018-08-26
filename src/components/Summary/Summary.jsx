@@ -18,7 +18,9 @@ const Summary = ({ onNext, results }) => {
           <span>{`${avgFormatted} sec.`}</span>
         </div>
       </div>
-      <button onClick={onNext}>Restart</button>
+      <button className="Summary__restart-btn" onClick={onNext}>
+        Restart
+      </button>
     </div>
   );
 };

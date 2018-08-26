@@ -1,3 +1,5 @@
+@import "../../styling/buttons";
+
 .Summary {
   display: flex;
   flex-direction: column;
@@ -5,7 +7,6 @@
 
   &__results {
     width: 50%;
-    margin-bottom: 5rem;
 
     &-item {
       display: flex;
@@ -13,5 +14,10 @@
       padding: 1rem;
       border-bottom: 1px solid #ccc;
     }
+  }
+
+  &__restart-btn {
+    @extend .button--restart;
+    margin-top: 2rem;
   }
 }
