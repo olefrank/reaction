@@ -23,6 +23,7 @@ const withElementProps = (Shape, name = "") => {
           props.disabled ? "disabled" : ""
         }`}
         onClick={e => props.onClick(props.correct)}
+        data-e2e={props.correct ? "correct" : "incorrect"}
       >
         <Shape name={name} {...props} />
       </div>

@@ -1,6 +1,9 @@
 /// <reference types="Cypress" />
 
 describe("Complete game flow", () => {
+  const numTests = 3;
+  const countdown = 3;
+
   it("should have a welcome screen", () => {
     cy.visit("http://localhost:3000");
 
@@ -12,22 +15,22 @@ describe("Complete game flow", () => {
   });
 
   it("should have a correct element pr test", () => {
-    const numTests = 5;
-    const introDelay = 3000;
+    const introDelay = countdown * 1000;
+
     for (let i = 0; i < numTests; i++) {
       // wait for introduction text
       cy.wait(introDelay);
-      cy.get("[data-e2e=correct-element]").click();
+      cy.get("[data-e2e=correct]").click();
     }
   });
 
-  it("should have a welcome screen with 6 results", () => {
+  it(`should have a summary screen with ${numTests + 1} results`, () => {
     // title text
     cy.get("[data-e2e=summary-title]").should("contain", "Summary");
 
     // results
     cy.get("[data-e2e=summary-results]")
       .children()
-      .should("have.length", 6);
+      .should("have.length", numTests + 1);
   });
 });

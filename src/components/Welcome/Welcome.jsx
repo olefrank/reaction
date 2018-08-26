@@ -4,7 +4,7 @@ import "./Welcome.css";
 
 const Welcome = ({ onNext, numTests, changeSteps }) => (
   <div className="Welcome">
-    <h2>Welcome</h2>
+    <h2 data-e2e="welcome-title">Welcome</h2>
 
     <p>Select number of tests</p>
     <select
@@ -13,7 +13,9 @@ const Welcome = ({ onNext, numTests, changeSteps }) => (
     >
       {renderOptions(5)}
     </select>
-    <button onClick={onNext}>Start</button>
+    <button onClick={onNext} data-e2e="start-button">
+      Start
+    </button>
   </div>
 );
 

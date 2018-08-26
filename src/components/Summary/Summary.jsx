@@ -10,8 +10,8 @@ const Summary = ({ onNext, results }) => {
 
   return (
     <div className="Summary">
-      <h2>Summary</h2>
-      <div className="Summary__results">
+      <h2 data-e2e="summary-title">Summary</h2>
+      <div className="Summary__results" data-e2e="summary-results">
         {results && results.map((result, i) => renderResult(result, i))}
         <div className="Summary__results-item">
           <span>Average</span>
